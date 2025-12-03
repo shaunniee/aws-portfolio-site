@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  variables:
+    # TODO: replace with your actual bucket name
+    S3_BUCKET: "shaun-portfolio-content "
+    # TODO: replace with your actual CloudFront distribution ID (e.g. D123ABC456XYZ)
+    CLOUDFRONT_DISTRIBUTION_ID: "E2AMUPAF5FZ1M8"
+
+phases:
+  install:
+    commands:
+      - echo "Install phase - nothing to install for basic static site"
+  build:
+    commands:
+      - echo "Build phase - add npm/yarn build commands here if you move to a JS framework"
+  post_build:
+    commands:
+      - echo "Deploying to S3..."
+      - aws s3 sync . s3://$S3_BUCKET --delete --exclude ".git/*" --exclude "buildspec.yml"
+      - echo "Creating CloudFront invalidation..."
+      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+
+artifacts:
+  files:
+    - '**/*'
