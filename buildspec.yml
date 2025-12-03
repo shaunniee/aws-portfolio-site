@@ -2,9 +2,7 @@ version: 0.2
 
 env:
   variables:
-    # TODO: replace with your actual bucket name
     S3_BUCKET: "shaun-portfolio-content "
-    # TODO: replace with your actual CloudFront distribution ID (e.g. D123ABC456XYZ)
     CLOUDFRONT_DISTRIBUTION_ID: "E2AMUPAF5FZ1M8"
 
 phases:
