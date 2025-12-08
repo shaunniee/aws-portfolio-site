@@ -1,10 +1,10 @@
 version: 0.2
 
 env:
-  variables:
+  parameter-store:
     S3_BUCKET: "/portfolio/static-site/s3-bucket"
     CLOUDFRONT_DISTRIBUTION_ID: "/portfolio/static-site/cf-distribution-id"
-
+    
 phases:
   install:
     commands:
