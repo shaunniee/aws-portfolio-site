@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Shaun's AWS cloud portfolio showcasing real-world projects on S3, CloudFront, VPC, Lambda, and more." />
 
-  <!-- Optional: Google Font -->
+  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #f5f5f7;
+      --bg: #f4f4f7;
       --bg-alt: #ffffff;
       --text: #0f172a;
       --text-soft: #6b7280;
@@ -21,9 +21,8 @@
       --accent-soft: rgba(37, 99, 235, 0.08);
       --border: #e5e7eb;
       --radius-lg: 16px;
-      --radius-xl: 24px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
-      --nav-height: 64px;
+      --radius-xl: 22px;
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.15);
     }
 
     * {
@@ -39,9 +38,10 @@
 
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #e5edff 0, #f5f5f7 42%, #f9fafb 100%);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      font-size: 15px;
     }
 
     a {
@@ -62,39 +62,40 @@
 
     .shell {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1.1rem;
     }
 
-    /* Header / Nav */
+    /* Header */
 
     header {
+      background: rgba(244, 244, 247, 0.98);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.9);
       position: sticky;
       top: 0;
-      z-index: 50;
-      backdrop-filter: blur(18px);
-      background: rgba(245, 245, 247, 0.95);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+      z-index: 20;
+      backdrop-filter: blur(14px);
     }
 
     .nav {
-      height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      padding: 0.7rem 0;
+      gap: 0.75rem;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
+      min-width: 0;
     }
 
     .avatar {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 999px;
       background: radial-gradient(circle at 30% 0%, #60a5fa, #1d4ed8);
       display: flex;
@@ -102,44 +103,42 @@
       justify-content: center;
       color: #eff6ff;
       font-weight: 600;
-      font-size: 0.95rem;
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+      font-size: 0.9rem;
       flex-shrink: 0;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
     }
 
     .nav-title {
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     .nav-title span:first-child {
       font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 0.02em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
 
     .nav-title span:last-child {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-soft);
     }
 
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      position: relative;
+      gap: 0.6rem;
     }
 
     .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      font-size: 0.9rem;
+      display: none; /* mobile hidden */
     }
 
     .nav-links a {
-      position: relative;
-      padding-bottom: 2px;
+      font-size: 0.85rem;
       color: var(--text-soft);
     }
 
@@ -147,26 +146,10 @@
       color: var(--text);
     }
 
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 2px;
-      border-radius: 999px;
-      background: var(--accent);
-      transition: width 0.22s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
     .nav-cta {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.3rem;
       padding: 0.45rem 0.9rem;
       border-radius: 999px;
       border: 1px solid rgba(37, 99, 235, 0.4);
@@ -174,7 +157,7 @@
       color: #eff6ff;
       font-size: 0.8rem;
       font-weight: 500;
-      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.5);
       white-space: nowrap;
     }
 
@@ -183,73 +166,58 @@
       transform: translateY(1px);
     }
 
-    /* Hamburger toggle */
+    /* Mobile tab bar for sections */
 
-    .nav-toggle {
+    .nav-tabs {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding: 0.4rem 0 0.6rem;
+      scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
       display: none;
-      width: 34px;
-      height: 34px;
+    }
+
+    .nav-tab {
+      flex-shrink: 0;
+      padding: 0.25rem 0.7rem;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: rgba(255, 255, 255, 0.95);
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      padding: 0;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 0.78rem;
+      color: var(--text-soft);
     }
 
-    .nav-toggle span {
-      display: block;
-      width: 16px;
-      height: 2px;
-      border-radius: 999px;
-      background: #374151;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+    .nav-tab:hover {
+      border-color: #cbd5f5;
     }
 
-    .nav-toggle span + span {
-      margin-top: 4px;
-    }
-
-    .nav-toggle.active span:first-child {
-      transform: translateY(3px) rotate(45deg);
-    }
-
-    .nav-toggle.active span:last-child {
-      transform: translateY(-3px) rotate(-45deg);
-    }
-
-    /* Main layout */
+    /* Main */
 
     main {
       flex: 1;
-      padding: 2.3rem 0 4rem;
+      padding: 1.8rem 0 3.2rem;
     }
 
     section {
-      padding: 3.5rem 0;
+      padding: 2.4rem 0;
     }
 
     /* Hero */
 
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
-      gap: 3rem;
-      align-items: center;
-    }
-
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       padding: 0.25rem 0.6rem;
       border-radius: 999px;
       background: var(--accent-soft);
       border: 1px solid rgba(129, 140, 248, 0.4);
       font-size: 0.75rem;
       color: var(--accent);
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
 
     .badge-dot {
@@ -261,32 +229,31 @@
     }
 
     .hero-title {
-      font-size: clamp(2.1rem, 3vw, 2.8rem);
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin-bottom: 0.9rem;
+      font-size: 1.8rem;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      margin-bottom: 0.7rem;
     }
 
-    .hero-title span.highlight {
+    .hero-title .highlight {
       color: var(--accent);
     }
 
     .hero-subtitle {
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       color: var(--text-soft);
-      max-width: 32rem;
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.2rem;
     }
 
     .hero-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 2rem;
+      gap: 0.5rem;
+      margin-bottom: 1.4rem;
     }
 
     .tag {
-      padding: 0.25rem 0.7rem;
+      padding: 0.25rem 0.65rem;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: rgba(255, 255, 255, 0.9);
@@ -296,125 +263,129 @@
 
     .hero-actions {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-bottom: 1.4rem;
     }
 
     .btn-primary {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1.2rem;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1rem;
       border-radius: 999px;
       background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: #eff6ff;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 500;
       border: none;
-      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.5);
       cursor: pointer;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.55);
+      width: 100%;
     }
 
     .btn-ghost {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.05rem;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.72rem 1rem;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       font-size: 0.9rem;
       color: var(--text-soft);
       cursor: pointer;
+      width: 100%;
     }
 
-    .btn-ghost span.icon,
-    .btn-primary span.icon {
+    .btn-primary .icon,
+    .btn-ghost .icon {
       font-size: 1rem;
       transform: translateY(1px);
     }
 
     .hero-meta {
-      margin-top: 1.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      font-size: 0.8rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      font-size: 0.78rem;
       color: var(--text-soft);
+      margin-bottom: 1.6rem;
     }
 
-    .hero-meta-item span.label {
-      display: block;
+    .hero-meta-item .label {
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-size: 0.7rem;
       color: #9ca3af;
     }
 
-    .hero-meta-item span.value {
+    .hero-meta-item .value {
       font-weight: 500;
       margin-top: 0.15rem;
     }
 
     .hero-card {
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--bg-alt);
       border-radius: var(--radius-xl);
-      padding: 1.7rem 1.8rem;
+      padding: 1.4rem 1.35rem;
+      border: 1px solid rgba(226, 232, 240, 0.95);
       box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(226, 232, 240, 0.9);
       display: flex;
       flex-direction: column;
-      gap: 1.4rem;
+      gap: 1.1rem;
     }
 
     .hero-card-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.75rem;
+      align-items: center;
     }
 
     .hero-card-title {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       color: #9ca3af;
-    }
-
-    .hero-card-chip {
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      background: var(--accent-soft);
-      color: var(--accent);
-      white-space: nowrap;
     }
 
     .hero-card-metric {
       display: flex;
       align-items: baseline;
-      gap: 0.3rem;
+      gap: 0.25rem;
+      margin-top: 0.2rem;
     }
 
-    .hero-card-metric span.value {
-      font-size: 1.8rem;
+    .hero-card-metric .value {
+      font-size: 1.6rem;
       font-weight: 600;
     }
 
-    .hero-card-metric span.sublabel {
-      font-size: 0.8rem;
+    .hero-card-metric .sublabel {
+      font-size: 0.78rem;
       color: var(--text-soft);
+    }
+
+    .hero-card-chip {
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.72rem;
+      white-space: nowrap;
     }
 
     .hero-card-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.9rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
     }
 
     .metric-card {
-      padding: 0.9rem 0.95rem;
+      padding: 0.8rem 0.85rem;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
       background: #f9fafb;
@@ -423,32 +394,31 @@
 
     .metric-label {
       color: #9ca3af;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
     }
 
     .metric-value {
       font-weight: 500;
-      color: var(--text);
     }
 
     .legend {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-top: 0.4rem;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
     }
 
     .legend-item {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      font-size: 0.76rem;
+      gap: 0.3rem;
+      font-size: 0.74rem;
       color: var(--text-soft);
     }
 
     .legend-swatch {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
       background: #2563eb;
     }
@@ -460,53 +430,49 @@
     /* Sections */
 
     .section-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.8rem;
-      align-items: baseline;
+      margin-bottom: 1.6rem;
     }
 
     .section-title {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 600;
       letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
     }
 
     .section-subtitle {
       font-size: 0.86rem;
       color: var(--text-soft);
-      max-width: 26rem;
     }
 
     /* Projects */
 
     .grid-projects {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.4rem;
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
 
     .project-card {
       border-radius: var(--radius-lg);
       background: var(--bg-alt);
       border: 1px solid var(--border);
-      padding: 1.2rem 1.15rem;
+      padding: 1rem 0.9rem;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+      gap: 0.55rem;
     }
 
     .project-pill {
       padding: 0.16rem 0.6rem;
       border-radius: 999px;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       background: #eff6ff;
       color: #1d4ed8;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      width: fit-content;
     }
 
     .project-title {
@@ -520,26 +486,26 @@
     }
 
     .project-meta {
-      margin-top: 0.4rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      font-size: 0.78rem;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
     }
 
     .meta-chip {
-      padding: 0.15rem 0.55rem;
+      padding: 0.12rem 0.55rem;
       border-radius: 999px;
       border: 1px solid var(--border);
+      font-size: 0.76rem;
       color: #4b5563;
       background: #f9fafb;
     }
 
     .project-links {
-      margin-top: 0.7rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 0.55rem;
+      margin-top: 0.55rem;
       font-size: 0.8rem;
     }
 
@@ -550,7 +516,7 @@
       color: #2563eb;
     }
 
-    .project-links a span.icon {
+    .project-links .icon {
       font-size: 0.9rem;
       transform: translateY(1px);
     }
@@ -559,268 +525,248 @@
 
     .skills-layout {
       display: grid;
-      grid-template-columns: minmax(0, 2.4fr) minmax(0, 2fr);
-      gap: 2rem;
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
     }
 
     .pill-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
+      gap: 0.55rem;
     }
 
     .pill {
-      padding: 0.32rem 0.7rem;
+      padding: 0.3rem 0.7rem;
       border-radius: 999px;
       font-size: 0.8rem;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       color: #4b5563;
     }
 
     .skills-card {
-      padding: 1.1rem 1.2rem;
+      padding: 1rem 1rem;
       border-radius: var(--radius-lg);
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--bg-alt);
       border: 1px solid var(--border);
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
       font-size: 0.84rem;
     }
 
     .skills-card h3 {
       font-size: 0.9rem;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
     .skills-list {
       list-style: none;
       display: grid;
-      gap: 0.45rem;
+      gap: 0.4rem;
     }
 
     .skills-list li {
       display: flex;
-      justify-content: space-between;
-      gap: 0.5rem;
+      flex-direction: column;
+      gap: 0.1rem;
     }
 
-    .skills-list span.label {
+    .skills-list .label {
       color: var(--text-soft);
+      font-size: 0.8rem;
     }
 
-    .skills-list span.value {
+    .skills-list .value {
       font-weight: 500;
-      text-align: right;
+      font-size: 0.82rem;
     }
 
     /* Contact */
 
     .contact {
       border-radius: var(--radius-xl);
-      padding: 1.75rem 1.8rem;
+      padding: 1.4rem 1.35rem;
       background: radial-gradient(circle at top left, #dbeafe, #eff6ff 30%, #ffffff 70%);
-      border: 1px solid rgba(191, 219, 254, 0.9);
+      border: 1px solid rgba(191, 219, 254, 0.95);
       box-shadow: var(--shadow-soft);
       display: flex;
-      flex-wrap: wrap;
-      gap: 1.7rem;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .contact-text {
-      max-width: 26rem;
-      font-size: 0.9rem;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .contact-text h2 {
-      font-size: 1.2rem;
-      margin-bottom: 0.4rem;
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-text p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
     }
 
     .contact-actions {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      align-items: center;
-      justify-content: flex-end;
+      flex-direction: column;
+      gap: 0.6rem;
     }
 
     .contact-note {
       font-size: 0.78rem;
       color: #64748b;
+      margin-top: 0.4rem;
     }
 
     /* Footer */
 
     footer {
-      border-top: 1px solid rgba(226, 232, 240, 0.8);
-      padding: 1.2rem 0 1.5rem;
+      border-top: 1px solid rgba(226, 232, 240, 0.9);
+      padding: 1rem 0 1.4rem;
       font-size: 0.78rem;
       color: var(--text-soft);
     }
 
     .footer-inner {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 0.4rem;
     }
 
     .footer-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.9rem;
+      gap: 0.8rem;
+      font-size: 0.78rem;
     }
 
     .footer-links a {
       color: #6b7280;
     }
 
-    /* Responsive tweaks */
+    /* Larger screens */
 
-    @media (max-width: 960px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 2.2rem;
+    @media (min-width: 640px) {
+      .hero-meta {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .hero-card {
-        order: -1;
+      .hero-actions {
+        flex-direction: row;
+      }
+
+      .btn-primary,
+      .btn-ghost {
+        width: auto;
       }
 
       .grid-projects {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .skills-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 720px) {
-      .shell {
-        padding: 0 1.15rem;
-      }
-
-      .nav {
-        height: auto;
-        padding: 0.6rem 0;
-      }
-
-      .nav-links {
-        position: absolute;
-        top: calc(var(--nav-height) - 4px);
-        right: -1.5rem;
-        left: -1.5rem;
-        padding: 0.75rem 1.5rem 1rem;
-        background: rgba(245, 245, 247, 0.98);
-        border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-        flex-direction: column;
-        gap: 0.75rem;
-        display: none;
-      }
-
-      .nav-links a {
-        padding: 0.2rem 0;
-        font-size: 0.92rem;
-      }
-
-      .nav-links.nav-open {
-        display: flex;
-      }
-
-      .nav-cta {
-        font-size: 0.82rem;
-        padding: 0.5rem 1rem;
-      }
-
-      .nav-toggle {
-        display: inline-flex;
-      }
-
-      main {
-        padding-top: 1.8rem;
-      }
-
-      section {
-        padding: 2.4rem 0;
-      }
-
-      .hero-actions {
-        gap: 0.6rem;
-      }
-
-      .btn-primary,
-      .btn-ghost {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .hero-meta {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-
-      .grid-projects {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .project-card {
-        padding: 1.1rem 1rem;
-      }
-
-      .contact {
-        padding: 1.4rem 1.3rem;
-        flex-direction: column;
-        align-items: flex-start;
+      .footer-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
       }
 
       .contact-actions {
-        justify-content: flex-start;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    @media (min-width: 860px) {
+      .shell {
+        padding: 0 1.5rem;
       }
 
-      .skills-list li {
-        flex-direction: column;
-        align-items: flex-start;
+      .nav {
+        padding: 0.8rem 0.3rem;
       }
 
-      .skills-list span.value {
-        text-align: left;
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.15rem;
+        font-size: 0.88rem;
+      }
+
+      .nav-tabs {
+        display: none;
+      }
+
+      .hero-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+        gap: 2.6rem;
+        align-items: center;
+      }
+
+      .hero-title {
+        font-size: 2.2rem;
+      }
+
+      .hero-card {
+        padding: 1.6rem 1.6rem;
+      }
+
+      .hero-card-grid {
+        gap: 1rem;
+      }
+
+      .grid-projects {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .skills-layout {
+        grid-template-columns: minmax(0, 2.3fr) minmax(0, 2fr);
+      }
+
+      .contact {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .footer-inner {
+        flex-direction: row;
       }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <!-- Nav -->
+    <!-- Header -->
     <header>
-      <div class="shell nav">
-        <div class="nav-left">
-          <div class="avatar">S</div>
-          <div class="nav-title">
-            <span>Shaun</span>
-            <span>AWS Cloud | Dublin, IE</span>
+      <div class="shell">
+        <div class="nav">
+          <div class="nav-left">
+            <div class="avatar">S</div>
+            <div class="nav-title">
+              <span>Shaun</span>
+              <span>AWS Cloud · Dublin, IE</span>
+            </div>
           </div>
-        </div>
-
-        <div class="nav-right">
-          <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-            <span></span>
-            <span></span>
-          </button>
-          <nav class="nav-links">
-            <a href="#hero">Home</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="#architecture">Architecture</a>
-            <a href="#contact">Contact</a>
+          <div class="nav-right">
+            <nav class="nav-links">
+              <a href="#hero">Home</a>
+              <a href="#projects">Projects</a>
+              <a href="#skills">Skills</a>
+              <a href="#architecture">Architecture</a>
+              <a href="#contact">Contact</a>
+            </nav>
             <a class="nav-cta" href="https://github.com/shaunniee" target="_blank" rel="noopener">
               GitHub
               <span class="icon">↗</span>
             </a>
-          </nav>
+          </div>
+        </div>
+
+        <!-- Mobile section tabs -->
+        <div class="nav-tabs">
+          <a class="nav-tab" href="#hero">Home</a>
+          <a class="nav-tab" href="#projects">Projects</a>
+          <a class="nav-tab" href="#skills">Skills</a>
+          <a class="nav-tab" href="#architecture">Architecture</a>
+          <a class="nav-tab" href="#contact">Contact</a>
         </div>
       </div>
     </header>
@@ -828,18 +774,20 @@
     <main>
       <!-- Hero -->
       <section id="hero">
-        <div class="shell hero">
+        <div class="shell hero-layout">
           <div>
             <div class="badge">
               <span class="badge-dot"></span>
               Open to AWS / Cloud Engineering roles
             </div>
+
             <h1 class="hero-title">
-              Designing <span class="highlight">practical AWS architectures</span> for real-world workloads.
+              Designing <span class="highlight">practical AWS architectures</span> for real workloads.
             </h1>
+
             <p class="hero-subtitle">
               I build and document AWS solutions end-to-end: static sites on S3 + CloudFront, 3-tier VPC apps, and serverless
-              architectures with Lambda, API Gateway and DynamoDB. Everything here is deployed, monitored and cost-aware.
+              systems with Lambda, API Gateway and DynamoDB. Everything here is actually deployed and cost-aware.
             </p>
 
             <div class="hero-tags">
@@ -862,7 +810,7 @@
             <div class="hero-meta">
               <div class="hero-meta-item">
                 <span class="label">Focus</span>
-                <span class="value">Cloud Architecture & Implementation</span>
+                <span class="value">Cloud architecture & implementation</span>
               </div>
               <div class="hero-meta-item">
                 <span class="label">Location</span>
@@ -884,7 +832,7 @@
                   <span class="sublabel">AWS projects</span>
                 </div>
               </div>
-              <div class="hero-card-chip">Hands-on | Not slideware</div>
+              <div class="hero-card-chip">Hands-on · Not slideware</div>
             </div>
 
             <div class="hero-card-grid">
@@ -893,7 +841,8 @@
                 <div class="metric-value">S3 · CloudFront · WAF</div>
                 <div class="legend">
                   <div class="legend-item">
-                    <span class="legend-swatch"></span> Public portfolio
+                    <span class="legend-swatch"></span>
+                    Public portfolio
                   </div>
                 </div>
               </div>
@@ -902,7 +851,8 @@
                 <div class="metric-value">3-tier + serverless</div>
                 <div class="legend">
                   <div class="legend-item">
-                    <span class="legend-swatch alt"></span> VPC + RDS
+                    <span class="legend-swatch alt"></span>
+                    VPC + RDS
                   </div>
                 </div>
               </div>
@@ -925,21 +875,18 @@
           <div class="section-header">
             <h2 class="section-title">Selected AWS projects</h2>
             <p class="section-subtitle">
-              Each project is deployed on AWS with full notes: architecture, trade-offs, IaC (when useful) and
-              operational considerations.
+              Each project is deployed on AWS with notes on architecture, trade-offs and operations.
             </p>
           </div>
 
           <div class="grid-projects">
-            <!-- Project 1: Static portfolio -->
+            <!-- Project 1 -->
             <article class="project-card">
-              <div class="project-pill">
-                Static site · Edge
-              </div>
+              <div class="project-pill">Static site · Edge</div>
               <h3 class="project-title">AWS Cloud Portfolio (this site)</h3>
               <p class="project-desc">
-                Static portfolio hosted on S3, fronted by CloudFront with WAF. GitHub → CodePipeline handles CI/CD with
-                cache invalidations and basic monitoring on errors and latency.
+                Static portfolio hosted on S3, fronted by CloudFront and protected with WAF. GitHub → CodePipeline powers
+                CI/CD with cache invalidations and basic monitoring.
               </p>
               <div class="project-meta">
                 <span class="meta-chip">S3 website hosting</span>
@@ -957,15 +904,13 @@
               </div>
             </article>
 
-            <!-- Project 2: 3-tier app -->
+            <!-- Project 2 -->
             <article class="project-card">
-              <div class="project-pill">
-                VPC · 3-tier
-              </div>
+              <div class="project-pill">VPC · 3-tier</div>
               <h3 class="project-title">TaskFlow · Classic 3-tier architecture</h3>
               <p class="project-desc">
-                Production-style 3-tier app with public web tier, private app tier and RDS in isolated subnets.
-                Demonstrates routing, security groups, NAT vs IGW usage and migration paths to serverless.
+                3-tier app with public web tier, private app tier and RDS in isolated subnets. Covers routing, security groups,
+                NAT vs IGW decisions and a path to serverless.
               </p>
               <div class="project-meta">
                 <span class="meta-chip">ALB + EC2</span>
@@ -983,15 +928,13 @@
               </div>
             </article>
 
-            <!-- Project 3: Serverless blog -->
+            <!-- Project 3 -->
             <article class="project-card">
-              <div class="project-pill">
-                Serverless · API
-              </div>
+              <div class="project-pill">Serverless · API</div>
               <h3 class="project-title">Serverless Blog & CRM</h3>
               <p class="project-desc">
-                Blog platform where posts are created via a CRM frontend. Uses API Gateway + Lambda + DynamoDB, with S3
-                for media uploads and Cognito for authentication.
+                Blog platform where posts are created via a CRM frontend. API Gateway + Lambda + DynamoDB on the backend,
+                S3 for media and Cognito for auth.
               </p>
               <div class="project-meta">
                 <span class="meta-chip">API Gateway</span>
@@ -1012,21 +955,20 @@
         </div>
       </section>
 
-      <!-- Skills & Focus -->
+      <!-- Skills -->
       <section id="skills">
         <div class="shell">
           <div class="section-header">
             <h2 class="section-title">Skills & focus areas</h2>
             <p class="section-subtitle">
-              My goal is to combine clear architecture thinking with hands-on implementation. These are the AWS areas I
-              actually build with, not just read about.
+              I care about combining clear architecture thinking with hands-on implementation.
             </p>
           </div>
 
           <div class="skills-layout">
             <div>
-              <h3 style="font-size:0.92rem; margin-bottom:0.6rem;">Core AWS stack</h3>
-              <div class="pill-row" style="margin-bottom:1.2rem;">
+              <h3 style="font-size:0.92rem; margin-bottom:0.5rem;">Core AWS stack</h3>
+              <div class="pill-row" style="margin-bottom:1.1rem;">
                 <span class="pill">VPC · Subnets · Routing</span>
                 <span class="pill">ALB / NLB</span>
                 <span class="pill">EC2 · Auto Scaling</span>
@@ -1036,7 +978,7 @@
                 <span class="pill">IAM · Cognito</span>
               </div>
 
-              <h3 style="font-size:0.92rem; margin-bottom:0.6rem;">Modern patterns</h3>
+              <h3 style="font-size:0.92rem; margin-bottom:0.5rem;">Modern patterns</h3>
               <div class="pill-row">
                 <span class="pill">Serverless (Lambda)</span>
                 <span class="pill">Event-driven (SQS, SNS)</span>
@@ -1057,15 +999,15 @@
                 </li>
                 <li>
                   <span class="label">Security</span>
-                  <span class="value">Principle of least privilege</span>
+                  <span class="value">Least privilege, no wildcards by default</span>
                 </li>
                 <li>
                   <span class="label">Cost awareness</span>
-                  <span class="value">Right-sized, with trade-offs noted</span>
+                  <span class="value">Right-sized, with trade-offs written down</span>
                 </li>
                 <li>
                   <span class="label">Documentation</span>
-                  <span class="value">README + diagrams + runbooks</span>
+                  <span class="value">README + diagrams + troubleshooting</span>
                 </li>
                 <li>
                   <span class="label">Tooling</span>
@@ -1077,14 +1019,13 @@
         </div>
       </section>
 
-      <!-- Architecture philosophy -->
+      <!-- Architecture -->
       <section id="architecture">
         <div class="shell">
           <div class="section-header">
             <h2 class="section-title">Architecture approach</h2>
             <p class="section-subtitle">
-              I care about patterns, not random services: clear separation of tiers, blast radius reduction, sane
-              networking and realistic DR for the context.
+              I focus on patterns: separation of tiers, blast radius reduction and realistic DR for the situation.
             </p>
           </div>
 
@@ -1094,7 +1035,7 @@
               <ul class="skills-list">
                 <li>
                   <span class="label">Static + edge</span>
-                  <span class="value">S3 + CloudFront + WAF for low-ops websites</span>
+                  <span class="value">S3 + CloudFront + WAF for low-ops sites</span>
                 </li>
                 <li>
                   <span class="label">3-tier apps</span>
@@ -1110,7 +1051,7 @@
                 </li>
                 <li>
                   <span class="label">Streaming</span>
-                  <span class="value">Kinesis for near-real-time insights</span>
+                  <span class="value">Kinesis for near real-time views</span>
                 </li>
               </ul>
             </div>
@@ -1119,20 +1060,20 @@
               <h3>What this portfolio shows</h3>
               <ul class="skills-list">
                 <li>
-                  <span class="label">From idea to deployed</span>
-                  <span class="value">Every project is live-deployable</span>
+                  <span class="label">End-to-end delivery</span>
+                  <span class="value">From idea → deployed workload</span>
                 </li>
                 <li>
                   <span class="label">Troubleshooting</span>
-                  <span class="value">DNS, TLS, CI/CD, IAM issues included</span>
+                  <span class="value">DNS, TLS, CI/CD and IAM issues</span>
                 </li>
                 <li>
                   <span class="label">Trade-offs</span>
-                  <span class="value">Described in each project README</span>
+                  <span class="value">Called out in each README</span>
                 </li>
                 <li>
                   <span class="label">Growth path</span>
-                  <span class="value">Room for multi-region and DR tiers</span>
+                  <span class="value">Room for multi-region, DR, IaC</span>
                 </li>
               </ul>
             </div>
@@ -1162,8 +1103,8 @@
                   <span class="icon">↗</span>
                 </a>
               </div>
-              <p class="contact-note" style="margin-top:0.6rem;">
-                I’m based in Dublin and open to remote-friendly or hybrid roles across Ireland and the EU.
+              <p class="contact-note">
+                Based in Dublin, open to remote-friendly or hybrid roles across Ireland and the EU.
               </p>
             </div>
           </div>
@@ -1184,31 +1125,7 @@
   </div>
 
   <script>
-    // Set current year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Mobile nav toggle
-    const navToggle = document.querySelector(".nav-toggle");
-    const navLinks = document.querySelector(".nav-links");
-
-    if (navToggle && navLinks) {
-      navToggle.addEventListener("click", () => {
-        const isOpen = navLinks.classList.toggle("nav-open");
-        navToggle.classList.toggle("active", isOpen);
-        navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      });
-
-      // Close menu when a link is clicked (mobile)
-      navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          if (navLinks.classList.contains("nav-open")) {
-            navLinks.classList.remove("nav-open");
-            navToggle.classList.remove("active");
-            navToggle.setAttribute("aria-expanded", "false");
-          }
-        });
-      });
-    }
   </script>
 </body>
 </html>
