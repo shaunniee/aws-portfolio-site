@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Shaun | AWS Cloud Portfolio - v2 commit check</title>
+  <title>Shaun | AWS Cloud Engineer Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Shaun's AWS cloud portfolio showcasing real-world projects on S3, CloudFront, VPC, Lambda, and more." />
+  <meta
+    name="description"
+    content="Shaun's AWS cloud portfolio showcasing real-world projects on S3, CloudFront, VPC, Lambda, RDS, DynamoDB and more."
+  />
   <style>
     :root {
       --bg: #050816;
@@ -49,12 +52,17 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: 0.75rem 0 1.75rem;
+      padding: 0.75rem 0 0.5rem;
       position: sticky;
       top: 0;
       z-index: 10;
       backdrop-filter: blur(16px);
-      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.4), transparent);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.92),
+        rgba(15, 23, 42, 0.4),
+        transparent
+      );
     }
 
     .logo {
@@ -136,11 +144,18 @@
       font-size: 0.85rem;
       font-weight: 500;
       border: 1px solid rgba(148, 163, 184, 0.3);
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), rgba(15, 23, 42, 0.97));
+      background: radial-gradient(
+        circle at top left,
+        rgba(56, 189, 248, 0.22),
+        rgba(15, 23, 42, 0.97)
+      );
       color: #e5e7eb;
       box-shadow: 0 10px 25px rgba(15, 23, 42, 0.7);
       cursor: pointer;
-      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, border-color 0.1s ease-out;
+      transition:
+        transform 0.1s ease-out,
+        box-shadow 0.1s ease-out,
+        border-color 0.1s ease-out;
       white-space: nowrap;
     }
 
@@ -163,7 +178,11 @@
       border: 1px solid rgba(148, 163, 184, 0.4);
       font-size: 0.7rem;
       color: var(--text-soft);
-      background: radial-gradient(circle at left, rgba(56, 189, 248, 0.08), rgba(15, 23, 42, 0.95));
+      background: radial-gradient(
+        circle at left,
+        rgba(56, 189, 248, 0.08),
+        rgba(15, 23, 42, 0.95)
+      );
     }
 
     .btn-ghost {
@@ -178,7 +197,11 @@
       color: var(--text-soft);
       background: rgba(15, 23, 42, 0.9);
       cursor: pointer;
-      transition: background 0.1s ease-out, border-color 0.1s ease-out, color 0.1s ease-out, transform 0.1s ease-out;
+      transition:
+        background 0.1s ease-out,
+        border-color 0.1s ease-out,
+        color 0.1s ease-out,
+        transform 0.1s ease-out;
       white-space: nowrap;
     }
 
@@ -189,11 +212,57 @@
       transform: translateY(-1px);
     }
 
+    /* Small link-style buttons for projects */
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+      cursor: pointer;
+      transition:
+        background 0.1s ease-out,
+        border-color 0.1s ease-out,
+        color 0.1s ease-out,
+        transform 0.1s ease-out;
+    }
+
+    .btn-link.primary {
+      border-color: rgba(56, 189, 248, 0.75);
+      background: radial-gradient(
+        circle at top left,
+        rgba(56, 189, 248, 0.16),
+        rgba(15, 23, 42, 0.98)
+      );
+      color: #e5e7eb;
+    }
+
+    .btn-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(148, 163, 184, 0.8);
+      color: #e5e7eb;
+    }
+
+    .btn-link.primary:hover {
+      border-color: rgba(56, 189, 248, 0.95);
+    }
+
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 2.2fr) minmax(0, 2fr);
       gap: 2.25rem;
-      padding: 1.5rem 0 2rem;
+      padding: 1.2rem 0 2rem;
       align-items: center;
     }
 
@@ -222,14 +291,14 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.6rem;
-      margin-bottom: 1.35rem;
+      margin-bottom: 1.0rem;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 0.7rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.1rem;
     }
 
     .hero-meta {
@@ -238,6 +307,7 @@
       gap: 1.25rem;
       font-size: 0.78rem;
       color: var(--text-soft);
+      margin-bottom: 0.5rem;
     }
 
     .hero-meta span strong {
@@ -245,9 +315,29 @@
       font-weight: 500;
     }
 
+    /* Tech strip under header/hero */
+    .hero-tech-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.76rem;
+      color: var(--text-soft);
+    }
+
+    .hero-tech-strip span {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
     .hero-panel {
       border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.98));
+      background: radial-gradient(
+        circle at top left,
+        rgba(56, 189, 248, 0.15),
+        rgba(15, 23, 42, 0.98)
+      );
       border: 1px solid rgba(148, 163, 184, 0.35);
       padding: 1.1rem 1.1rem 1.2rem;
       box-shadow: var(--shadow-soft);
@@ -309,10 +399,15 @@
     }
 
     .diagram-text {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
       white-space: pre;
       overflow-x: auto;
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), rgba(15, 23, 42, 1));
+      background: radial-gradient(
+        circle at top left,
+        rgba(56, 189, 248, 0.08),
+        rgba(15, 23, 42, 1)
+      );
       border-radius: 0.6rem;
       padding: 0.5rem 0.55rem;
       border: 1px solid rgba(15, 23, 42, 0.9);
@@ -350,7 +445,11 @@
 
     section {
       border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
+      background: radial-gradient(
+        circle at top left,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.98)
+      );
       border: 1px solid var(--border);
       padding: 1.4rem 1.2rem 1.4rem;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
@@ -471,14 +570,22 @@
     }
 
     .arch-diagram {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.72rem;
-      white-space: pre;
       border-radius: 0.6rem;
       padding: 0.55rem 0.6rem;
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.07), rgba(15, 23, 42, 1));
+      background: radial-gradient(
+        circle at top left,
+        rgba(56, 189, 248, 0.07),
+        rgba(15, 23, 42, 1)
+      );
       border: 1px dashed rgba(75, 85, 99, 0.8);
-      overflow-x: auto;
+      overflow: hidden;
+    }
+
+    .arch-diagram img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 0.5rem;
     }
 
     .contact-grid {
@@ -583,7 +690,7 @@
         <div class="logo-mark">S</div>
         <div class="logo-text">
           <span>Shaun</span>
-          <span>AWS & Cloud Projects - v2 commit test</span>
+          <span>AWS Cloud Engineer • Dublin, Ireland</span>
         </div>
       </div>
       <nav>
@@ -600,17 +707,22 @@
     <section class="hero" id="top">
       <div class="hero-text">
         <div class="hero-badges">
-          <div class="btn-pill">Building on AWS • Ireland (eu-west-1)</div>
+          <div class="btn-pill">
+            AWS-focused • eu-west-1 (Ireland)
+          </div>
+          <div class="btn-pill">
+            Hands-on architectures • Personal lab
+          </div>
         </div>
         <h1>
           I design and build
-          <span class="highlight">real AWS architectures</span>
-          you can put in production.
+          <span class="highlight">production-ready AWS architectures</span>
+          end to end.
         </h1>
         <p class="hero-subtitle">
-          Static sites on S3, global delivery with CloudFront, secure VPC apps with ALB & RDS,
-          and serverless APIs using API Gateway, Lambda and DynamoDB.
-          This portfolio is one of those projects.
+          From static sites on S3 and CloudFront to 3-tier VPC apps on EC2 and RDS, and
+          serverless APIs with API Gateway, Lambda and DynamoDB. Everything here is built,
+          deployed and running on AWS.
         </p>
 
         <div class="hero-actions">
@@ -618,7 +730,7 @@
             <span>Explore AWS projects</span>
           </button>
           <button class="btn-ghost" onclick="window.location.hash='#architecture'">
-            <span>See architecture</span>
+            <span>See static site architecture</span>
           </button>
         </div>
 
@@ -626,12 +738,18 @@
           <span><strong>Static Site v2:</strong> S3 + CloudFront + WAF + ACM</span>
           <span><strong>CI/CD:</strong> GitHub → CodePipeline → CodeBuild</span>
         </div>
+
+        <div class="hero-tech-strip">
+          <span>AWS SAA & DVA certified</span>
+          <span>Core: S3 · CloudFront · VPC · EC2 · RDS · Lambda · DynamoDB</span>
+          <span>Focus: security, cost, and operations</span>
+        </div>
       </div>
 
       <aside class="hero-panel" aria-label="Current project architecture">
         <div class="hero-panel-content">
           <div class="hero-panel-header">
-            <h2>Static Website v2</h2>
+            <h2>Static Portfolio Site v2</h2>
             <span>Deployed in eu-west-1</span>
           </div>
           <div class="diagram-box">
@@ -652,7 +770,7 @@ User → Route 53 (DNS)
           </div>
           <div class="hero-note">
             <span>Deployed on push to <code>main</code> from GitHub.</span>
-            <span>CloudFront logs &amp; WAF logs shipped to S3 for analysis.</span>
+            <span>CloudFront &amp; WAF logs shipped to S3 for analysis.</span>
           </div>
         </div>
       </aside>
@@ -663,11 +781,14 @@ User → Route 53 (DNS)
         <div class="section-header">
           <div>
             <h2 class="section-title">Cloud skills at a glance</h2>
-            <p class="section-subtitle">Focused on AWS designs that are actually used in real workloads.</p>
+            <p class="section-subtitle">
+              Focused on AWS designs that teams can actually run in production and operate day to day.
+            </p>
           </div>
           <div class="chips">
-            <span class="chip">AWS Solutions Architect Associate (in progress)</span>
-            <span class="chip">Hands-on labs & practice exams</span>
+            <span class="chip">AWS Certified Solutions Architect – Associate</span>
+            <span class="chip">AWS Certified Developer – Associate</span>
+            <span class="chip">Hands-on portfolio projects</span>
           </div>
         </div>
 
@@ -675,7 +796,8 @@ User → Route 53 (DNS)
           <article class="skill-card">
             <h3>Static hosting & edge</h3>
             <p>
-              Secure static sites with private S3 buckets, CloudFront distributions, WAF and custom domains via ACM & Route 53.
+              Secure static sites with private S3 buckets, CloudFront distributions, WAF, and custom domains
+              via ACM & Route 53. Built for low latency and least privilege access.
             </p>
             <div class="skill-tags">
               <span>S3 (private)</span>
@@ -687,9 +809,10 @@ User → Route 53 (DNS)
           </article>
 
           <article class="skill-card">
-            <h3>Networked web apps</h3>
+            <h3>Networked 3-tier web apps</h3>
             <p>
-              3-tier VPC designs with public ALBs, private EC2 Auto Scaling groups, and RDS in isolated subnets.
+              3-tier VPC designs with ALB in public subnets, Auto Scaling EC2 app tier, and RDS in private
+              subnets, wired with security groups and SSM for access.
             </p>
             <div class="skill-tags">
               <span>VPC</span>
@@ -697,31 +820,37 @@ User → Route 53 (DNS)
               <span>EC2 + ASG</span>
               <span>RDS</span>
               <span>Security Groups</span>
+              <span>SSM Session Manager</span>
             </div>
           </article>
 
           <article class="skill-card">
             <h3>Serverless & APIs</h3>
             <p>
-              Event-driven backends with API Gateway, Lambda and DynamoDB, plus IAM roles and CloudWatch logging.
+              Event-driven backends using API Gateway, Lambda and DynamoDB with IAM-based auth, structured
+              logging, and CloudWatch metrics/alarms.
             </p>
             <div class="skill-tags">
               <span>API Gateway</span>
               <span>Lambda</span>
               <span>DynamoDB</span>
               <span>CloudWatch</span>
+              <span>Cognito</span>
             </div>
           </article>
 
           <article class="skill-card">
             <h3>CI/CD & automation</h3>
             <p>
-              Build and release pipelines from GitHub using CodePipeline and CodeBuild, with automated CloudFront invalidations.
+              Build and release pipelines from GitHub using CodePipeline and CodeBuild, with automatic
+              CloudFront invalidations and zero manual S3 uploads.
             </p>
             <div class="skill-tags">
               <span>CodePipeline</span>
               <span>CodeBuild</span>
-              <span>IaC (future)</span>
+              <span>GitHub Webhooks</span>
+              <span>buildspec.yml</span>
+              <span>IaC (terraform / CFN – next)</span>
             </div>
           </article>
         </div>
@@ -731,38 +860,118 @@ User → Route 53 (DNS)
         <div class="section-header">
           <div>
             <h2 class="section-title">Flagship AWS projects</h2>
-            <p class="section-subtitle">Each project is built to mirror how real teams use AWS, not just tutorials.</p>
+            <p class="section-subtitle">
+              Real projects built to mirror how product teams use AWS in practice.
+            </p>
           </div>
         </div>
 
         <div class="projects-grid">
           <article class="project-card">
             <h3>Static Portfolio Site v2 (this site)</h3>
-            <div class="project-meta">S3 • CloudFront • WAF • Route 53 • ACM • CodePipeline • CodeBuild</div>
+            <div class="project-meta">
+              S3 • CloudFront • WAF • Route 53 • ACM • CodePipeline • CodeBuild
+            </div>
             <p>
-              Static HTML/CSS site hosted in a private S3 bucket, fronted by a CloudFront distribution with WAF,
-              custom domain and TLS managed by ACM. Deployed automatically from GitHub on every push to <code>main</code>.
+              Static HTML/CSS portfolio hosted in a private S3 bucket, fronted by CloudFront with AWS WAF,
+              custom domain and TLS from ACM. Deployed automatically from GitHub on every push to
+              <code>main</code>.
             </p>
             <ul class="project-list">
               <li>Private S3 origin accessed only via CloudFront Origin Access Control (OAC).</li>
-              <li>AWS WAF Web ACL with managed rules and rate limiting in front of CloudFront.</li>
-              <li>CloudFront &amp; WAF logs shipped to dedicated S3 buckets for analysis.</li>
+              <li>WAF Web ACL with AWS managed rules and basic rate limiting in front of CloudFront.</li>
+              <li>CloudFront &amp; WAF logs shipped to dedicated S3 buckets for analytics.</li>
               <li>CodePipeline &amp; CodeBuild sync content to S3 and invalidate CloudFront caches.</li>
             </ul>
+            <div class="project-links">
+              <!-- TODO: replace # with your real static site URL -->
+              <a class="btn-link primary" href="#" target="_blank" rel="noopener">
+                Live demo
+              </a>
+              <!-- TODO: replace with your real repo URL -->
+              <a class="btn-link" href="https://github.com/shaunniee/aws-static-portfolio" target="_blank" rel="noopener">
+                GitHub repo
+              </a>
+            </div>
           </article>
 
           <article class="project-card">
-            <h3>Planned: 3-tier VPC web app</h3>
-            <div class="project-meta">VPC • ALB • EC2 ASG • RDS • SSM</div>
+            <h3>Serverless Blog & CRM</h3>
+            <div class="project-meta">
+              React SPA • Cognito • API Gateway • Lambda • DynamoDB • S3
+            </div>
             <p>
-              Next step: a production-style 3-tier application with an internet-facing ALB, stateless EC2 app tier,
-              and RDS database tier in private subnets, fully instrumented with CloudWatch.
+              A blog + lightweight CRM where posts and customer data are created through a secure React app
+              and exposed via serverless APIs. Designed to show a real-world, event-driven stack.
             </p>
             <ul class="project-list">
-              <li>Public subnets for ALB and NAT, private subnets for app + DB.</li>
-              <li>Security groups locked down to only required ports and flows.</li>
-              <li>SSM Session Manager instead of SSH for instance access.</li>
+              <li>Authentication with Amazon Cognito user pools and hosted UI.</li>
+              <li>REST APIs exposed via API Gateway with Lambda integrations.</li>
+              <li>DynamoDB tables for posts and customer records, with GSIs for queries.</li>
+              <li>S3 used for media uploads, with signed URLs from the backend.</li>
             </ul>
+            <div class="project-links">
+              <!-- TODO: replace # with your deployed blog URL -->
+              <a class="btn-link primary" href="#" target="_blank" rel="noopener">
+                Live demo
+              </a>
+              <!-- Based on repo name you shared -->
+              <a class="btn-link" href="https://github.com/shaunniee/AWS-SERVERLESS-BLOG" target="_blank" rel="noopener">
+                GitHub repo
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="projects-grid" style="margin-top:0.8rem;">
+          <article class="project-card">
+            <h3>Classic 3-tier Task Manager</h3>
+            <div class="project-meta">
+              VPC • ALB • EC2 ASG • RDS • SSM • CloudWatch
+            </div>
+            <p>
+              A traditional 3-tier task management app to demonstrate VPC networking, routing, and operations.
+              Built the “old school” way to contrast with the serverless stack.
+            </p>
+            <ul class="project-list">
+              <li>Public subnets for ALB and NAT gateway, private subnets for app and DB tiers.</li>
+              <li>Auto Scaling EC2 group behind an ALB, running the Node.js application layer.</li>
+              <li>RDS (PostgreSQL) in private subnets with security groups locking traffic to the app tier.</li>
+              <li>SSM Session Manager instead of SSH bastion hosts for secure admin access.</li>
+            </ul>
+            <div class="project-links">
+              <!-- TODO: replace URLs when live -->
+              <a class="btn-link primary" href="#" target="_blank" rel="noopener">
+                Live demo
+              </a>
+              <a class="btn-link" href="https://github.com/shaunniee/aws-3tier-task-manager" target="_blank" rel="noopener">
+                GitHub repo
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>Streaming & analytics (in progress)</h3>
+            <div class="project-meta">
+              Kinesis • Lambda • S3 • Athena • CloudWatch
+            </div>
+            <p>
+              Designing a real-time business metrics pipeline using Kinesis and Lambda to process events,
+              store them in S3, and query with Athena for dashboards and alerting.
+            </p>
+            <ul class="project-list">
+              <li>Ingest clickstream / app events via Kinesis Data Streams.</li>
+              <li>Process records with Lambda and land enriched data into S3 data lake.</li>
+              <li>Expose business KPIs via Athena queries and scheduled reports.</li>
+            </ul>
+            <div class="project-links">
+              <a class="btn-link" href="#" target="_blank" rel="noopener">
+                Design doc (soon)
+              </a>
+              <a class="btn-link" href="https://github.com/shaunniee/aws-streaming-analytics" target="_blank" rel="noopener">
+                GitHub repo (WIP)
+              </a>
+            </div>
           </article>
         </div>
       </section>
@@ -771,55 +980,21 @@ User → Route 53 (DNS)
         <div class="section-header">
           <div>
             <h2 class="section-title">Static site v2 architecture</h2>
-            <p class="section-subtitle">How the pieces fit together in AWS.</p>
+            <p class="section-subtitle">How the portfolio is wired up inside AWS.</p>
           </div>
         </div>
 
         <div class="chips">
           <span class="chip">Region: eu-west-1</span>
           <span class="chip">Global: CloudFront, WAF, Route 53</span>
-          <span class="chip">ACM in us-east-1</span>
+          <span class="chip">ACM certificate in us-east-1</span>
         </div>
 
         <div class="arch-diagram">
-User Browser
-    |
-    v
-DNS query: www.yourdomain.com
-    |
-    v
-+---------------------------+
-|    Route 53 Hosted Zone   |
-|  A/AAAA Alias -> CF       |
-+---------------------------+
-                |
-                v
-+---------------------------------------------+
-|  CloudFront Distribution (Global)          |
-|  - Custom domain (www.yourdomain.com)      |
-|  - ACM TLS cert (us-east-1)                |
-|  - Attached AWS WAF Web ACL                |
-+----------------------+----------------------+
-                       |
-                       | Origin Access Control (OAC)
-                       v
-+--------------------------------------------------+
-| S3 Content Bucket (eu-west-1)                    |
-| - Private, block public access                   |
-| - index.html, CSS, JS, images                    |
-+--------------------------------------------------+
-
-GitHub Repo (aws-portfolio-site)
-    |
-    v
-CodePipeline (eu-west-1)
-    |
-    v
-CodeBuild (eu-west-1)
-    |
-    +--> aws s3 sync .  -> S3 Content Bucket
-    |
-    +--> aws cloudfront create-invalidation -> CloudFront
+          <img
+            src="https://private-user-images.githubusercontent.com/65142666/521860320-5a1c27b6-06bb-4148-af41-ba14100c5baf.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjUxOTczMDAsIm5iZiI6MTc2NTE5NzAwMCwicGF0aCI6Ii82NTE0MjY2Ni81MjE4NjAzMjAtNWExYzI3YjYtMDZiYi00MTQ4LWFmNDEtYmExNDEwMGM1YmFmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMDglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjA4VDEyMzAwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWE4MDQ1MTZhYzhlZWJjMjI0MDdhM2VjODA4OGYyODk2Y2QzYzRlZmVlMjM3YzQ3ZTEwMTFiYjE4ZmJmZDUwMWYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.5aCEw6fOCZsOMFr9QvYYuvM_JM5tNNPASHNzJSJURH4"
+            alt="AWS architecture diagram for the static portfolio site (Route 53, CloudFront, WAF, S3, CodePipeline, CodeBuild)"
+          />
         </div>
       </section>
 
@@ -836,13 +1011,14 @@ CodeBuild (eu-west-1)
         <div class="contact-grid">
           <div class="contact-text">
             <p>
-              If you’d like to talk about AWS, architecture, or how this setup was built, reach out and I’ll happily walk through
-              the decisions, trade-offs and what I’d improve next.
+              If you’d like to talk about AWS, architecture decisions, or how these projects are put together,
+              reach out and I’ll walk through the trade-offs, costs and what I’d do differently at scale.
             </p>
             <div class="contact-links">
+              <!-- Replace these with your real details -->
               <span>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></span>
               <span>LinkedIn: <a href="#" target="_blank" rel="noopener">linkedin.com/in/your-profile</a></span>
-              <span>GitHub: <a href="#" target="_blank" rel="noopener">github.com/your-github</a></span>
+              <span>GitHub: <a href="https://github.com/shaunniee" target="_blank" rel="noopener">github.com/shaunniee</a></span>
             </div>
           </div>
 
@@ -852,14 +1028,16 @@ CodeBuild (eu-west-1)
               <span>High-level summary</span>
             </div>
             <p>
-              Code lives in a GitHub repo. A CodePipeline in eu-west-1 listens for pushes to <code>main</code> and triggers CodeBuild.
+              Code lives in a GitHub repo. A CodePipeline in eu-west-1 listens for pushes to
+              <code>main</code> and triggers a CodeBuild project.
             </p>
             <p>
-              CodeBuild uses a <code>buildspec.yml</code> file to sync artifacts to a private S3 bucket and then creates a CloudFront
-              invalidation so new content goes live immediately.
+              CodeBuild uses a <code>buildspec.yml</code> file to build and sync artifacts to a private S3
+              bucket, and then creates a CloudFront invalidation so new content goes live quickly worldwide.
             </p>
             <p>
-              CloudFront sits in front of S3 with an Origin Access Control, AWS WAF Web ACL, and an ACM certificate for the custom domain.
+              CloudFront sits in front of S3 with an Origin Access Control, AWS WAF Web ACL, and an ACM
+              certificate attached to the custom domain.
             </p>
           </aside>
         </div>
@@ -867,8 +1045,10 @@ CodeBuild (eu-west-1)
     </main>
 
     <footer>
-      <span>Built and deployed on AWS • S3 · CloudFront · WAF · Route 53 · ACM · CodePipeline · CodeBuild</span>
-      <span>Version 2 of static site architecture</span>
+      <span>
+        Built and deployed on AWS • S3 · CloudFront · WAF · Route 53 · ACM · CodePipeline · CodeBuild
+      </span>
+      <span>Static portfolio architecture • Version 2</span>
     </footer>
   </div>
 </body>
