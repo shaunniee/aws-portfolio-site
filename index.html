@@ -23,7 +23,7 @@
       --radius-lg: 16px;
       --radius-xl: 24px;
       --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
-      --nav-height: 72px;
+      --nav-height: 64px;
     }
 
     * {
@@ -60,8 +60,6 @@
       flex-direction: column;
     }
 
-    /* Layout */
-
     .shell {
       width: 100%;
       max-width: 1120px;
@@ -69,12 +67,14 @@
       padding: 0 1.5rem;
     }
 
+    /* Header / Nav */
+
     header {
       position: sticky;
       top: 0;
       z-index: 50;
       backdrop-filter: blur(18px);
-      background: rgba(245, 245, 247, 0.92);
+      background: rgba(245, 245, 247, 0.95);
       border-bottom: 1px solid rgba(226, 232, 240, 0.7);
     }
 
@@ -83,6 +83,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 1rem;
     }
 
     .nav-left {
@@ -103,6 +104,7 @@
       font-weight: 600;
       font-size: 0.95rem;
       box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+      flex-shrink: 0;
     }
 
     .nav-title {
@@ -119,6 +121,13 @@
     .nav-title span:last-child {
       font-size: 0.8rem;
       color: var(--text-soft);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
     }
 
     .nav-links {
@@ -166,6 +175,7 @@
       font-size: 0.8rem;
       font-weight: 500;
       box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
+      white-space: nowrap;
     }
 
     .nav-cta span.icon {
@@ -173,9 +183,47 @@
       transform: translateY(1px);
     }
 
+    /* Hamburger toggle */
+
+    .nav-toggle {
+      display: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(255, 255, 255, 0.95);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: #374151;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle span + span {
+      margin-top: 4px;
+    }
+
+    .nav-toggle.active span:first-child {
+      transform: translateY(3px) rotate(45deg);
+    }
+
+    .nav-toggle.active span:last-child {
+      transform: translateY(-3px) rotate(-45deg);
+    }
+
+    /* Main layout */
+
     main {
       flex: 1;
-      padding: 2.5rem 0 4rem;
+      padding: 2.3rem 0 4rem;
     }
 
     section {
@@ -213,7 +261,7 @@
     }
 
     .hero-title {
-      font-size: clamp(2.25rem, 3vw, 2.8rem);
+      font-size: clamp(2.1rem, 3vw, 2.8rem);
       letter-spacing: -0.04em;
       line-height: 1.1;
       margin-bottom: 0.9rem;
@@ -281,10 +329,7 @@
       cursor: pointer;
     }
 
-    .btn-ghost span.icon {
-      font-size: 1rem;
-    }
-
+    .btn-ghost span.icon,
     .btn-primary span.icon {
       font-size: 1rem;
       transform: translateY(1px);
@@ -343,6 +388,7 @@
       font-size: 0.72rem;
       background: var(--accent-soft);
       color: var(--accent);
+      white-space: nowrap;
     }
 
     .hero-card-metric {
@@ -564,6 +610,7 @@
 
     .skills-list span.value {
       font-weight: 500;
+      text-align: right;
     }
 
     /* Contact */
@@ -596,12 +643,15 @@
       flex-wrap: wrap;
       gap: 0.8rem;
       align-items: center;
+      justify-content: flex-end;
     }
 
     .contact-note {
       font-size: 0.78rem;
       color: #64748b;
     }
+
+    /* Footer */
 
     footer {
       border-top: 1px solid rgba(226, 232, 240, 0.8);
@@ -628,11 +678,12 @@
       color: #6b7280;
     }
 
-    /* Responsive */
+    /* Responsive tweaks */
 
     @media (max-width: 960px) {
       .hero {
         grid-template-columns: minmax(0, 1fr);
+        gap: 2.2rem;
       }
 
       .hero-card {
@@ -649,37 +700,94 @@
     }
 
     @media (max-width: 720px) {
-      header {
-        position: static;
+      .shell {
+        padding: 0 1.15rem;
       }
 
       .nav {
         height: auto;
-        padding: 0.75rem 0;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
+        padding: 0.6rem 0;
       }
 
       .nav-links {
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        position: absolute;
+        top: calc(var(--nav-height) - 4px);
+        right: -1.5rem;
+        left: -1.5rem;
+        padding: 0.75rem 1.5rem 1rem;
+        background: rgba(245, 245, 247, 0.98);
+        border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+        flex-direction: column;
+        gap: 0.75rem;
+        display: none;
+      }
+
+      .nav-links a {
+        padding: 0.2rem 0;
+        font-size: 0.92rem;
+      }
+
+      .nav-links.nav-open {
+        display: flex;
+      }
+
+      .nav-cta {
+        font-size: 0.82rem;
+        padding: 0.5rem 1rem;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
       }
 
       main {
-        padding-top: 1.5rem;
+        padding-top: 1.8rem;
       }
 
       section {
         padding: 2.4rem 0;
       }
 
+      .hero-actions {
+        gap: 0.6rem;
+      }
+
+      .btn-primary,
+      .btn-ghost {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-meta {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
       .grid-projects {
         grid-template-columns: minmax(0, 1fr);
       }
 
+      .project-card {
+        padding: 1.1rem 1rem;
+      }
+
       .contact {
         padding: 1.4rem 1.3rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .contact-actions {
+        justify-content: flex-start;
+      }
+
+      .skills-list li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .skills-list span.value {
+        text-align: left;
       }
     }
   </style>
@@ -696,17 +804,24 @@
             <span>AWS Cloud | Dublin, IE</span>
           </div>
         </div>
-        <nav class="nav-links">
-          <a href="#hero">Home</a>
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#architecture">Architecture</a>
-          <a href="#contact">Contact</a>
-          <a class="nav-cta" href="https://github.com/shaunniee" target="_blank" rel="noopener">
-            GitHub
-            <span class="icon">↗</span>
-          </a>
-        </nav>
+
+        <div class="nav-right">
+          <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+          </button>
+          <nav class="nav-links">
+            <a href="#hero">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#contact">Contact</a>
+            <a class="nav-cta" href="https://github.com/shaunniee" target="_blank" rel="noopener">
+              GitHub
+              <span class="icon">↗</span>
+            </a>
+          </nav>
+        </div>
       </div>
     </header>
 
@@ -1071,6 +1186,29 @@
   <script>
     // Set current year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("nav-open");
+        navToggle.classList.toggle("active", isOpen);
+        navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+
+      // Close menu when a link is clicked (mobile)
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (navLinks.classList.contains("nav-open")) {
+            navLinks.classList.remove("nav-open");
+            navToggle.classList.remove("active");
+            navToggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      });
+    }
   </script>
 </body>
 </html>
